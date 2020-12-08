@@ -1,45 +1,12 @@
-from django.forms.models import inlineformset_factory
-from django import forms 
-from django.db import models   
-from .models import Order, ItemOrder
-
-class OrderForms(forms.ModelForm):
-    class Meta:
-        model = Order
-        exclude = ['date']
-
-
-class ItemOrderForms(forms.ModelForm):
-    class Meta:
-        model = ItemOrder
-        exclude = ['order']
-
+from django import forms
 
 
 
 class ContactForm(forms.Form):
+       
     
-#    class OrderForms(forms.ModelForm):
-#        class Meta:
-#            model = Order
-#            exclude = ['date']
-#    class ItemOrderForms(forms.ModelForm):
-#        class Meta:
-#            model = ItemOrder
-#            exclude = ['order']
-#    
-    order_forms = Order()
-    item_order_formset = inlineformset_factory(Order, ItemOrder, form=ItemOrderForms, extra=1, can_delete=False, min_num=1, validate_min=True)
-#
-#    #Pagina Um
-#    
-#
-#    #teste1 = forms.CharField(max_length=200,on_delete=forms.CASCADE, label='TEESTE', required=False)
-    teste2 = forms.CharField(max_length=200, label='TEESTE', required=False)
-    
-    
-    descri_dcdescriptionabastract = "Descreva o escopo, foco ou objetivo da revista de maneira sucinta"
-    dcdescriptionabastract = forms.CharField(widget=forms.Textarea,label='Descrição', help_text = descri_dcdescriptionabastract ,required=True)
+    descri_dcdescriptionabstract = "Descreva o escopo, foco ou objetivo da revista de maneira sucinta"
+    dcdescriptionabstract = forms.CharField(widget=forms.Textarea,label='Descrição', help_text = descri_dcdescriptionabstract ,required=True)
     descri_dctitle = "O campo Título deve ser preenchido da mesma forma que o campo Key title, presente no registro da revista na rede ISSN. Essa inforFmação pode ser verificada no link: https://portal.issn.org/" 
     dctitle = forms.CharField(max_length=200, label='Título', help_text=descri_dctitle, required=True)
     descri_dctitleabbreviated = "O campo Título abreviado deve ser preenchido da mesma forma que o campo Abbreviated key title, presente no registro da revista na rede ISSN. Em alguns casos, essa informação pode ser verificada no link: https://portal.issn.org/"
@@ -59,23 +26,20 @@ class ContactForm(forms.Form):
     op_dcdescriptionsituation = [("", ""),("Vigente","Vigente"),("Descontinuada (deixou de ser publicada)","Descontinuada (deixou de ser publicada)")]
     descri_situation="Indique se a revista se encontra vigente ou se deixou de ser publicada."
     dcdescriptionsituation = forms.ChoiceField(choices=op_dcdescriptionsituation,label='Situação',help_text=descri_situation, required=True)
-    descri_startyear="Informe o ano de início da publicação de acordo com o campo -Dates of publication-, conforme consta no registro da revista na rede ISSN. Em alguns casos, essa informação pode ser verificada no link:https://portal.issn.org/"
-    dcdatestartyears = forms.CharField(label = 'Ano de início de publicação',help_text=descri_startyear,required=True)
+    descri_startyear="Informe o ano de início da publicação de acordo com o campo \"Dates of publication\", conforme consta no registro da revista na rede ISSN. Em alguns casos, essa informação pode ser verificada no link:https://portal.issn.org/"
+    dcdatestartyear = forms.CharField(label = 'Ano de início de publicação',help_text=descri_startyear,required=True)
     desci_endyear="Caso a revista tenha deixado de ser publicada, informe o ano de publicação do último número, fascículo ou artigo."
     dcdateendyear = forms.CharField(label = 'Ano de finalização de publicação',help_text=desci_endyear,required=False)
     descri_url="Informe a URL da página inicial do site oficial de publicação."
     dcidentifierurl = forms.CharField(max_length=100, label='URL',help_text= descri_url, required=True)
    
-    descri_interoperabilityprotocol="Indique a URL do protocolo de interoperabilidade utilizado pela revista para coleta dos seus documentos por outros sistemas de distribuição. Caso a revista utilize o software OJS, o protocolo de interoperabilidade padrão é o OAI-PMH. Para obtê-lo, basta digitar, ao final da URL, a expressão -oai-. Caso a revista não seja editada em OJS, não esteja com o OAI-PMH habilitado ou utilize outro protocolo de interoperabilidade, sugerimos entrar em contato com o suporte técnico da revista. Por fim, caso a revista não utilize nenhum protocolo de interoperabilidade, deixe a questão em branco."
+    descri_interoperabilityprotocol="Indique a URL do protocolo de interoperabilidade utilizado pela revista para coleta dos seus documentos por outros sistemas de distribuição. Caso a revista utilize o software OJS, o protocolo de interoperabilidade padrão é o OAI-PMH. Para obtê-lo, basta digitar, ao final da URL, a expressão \"oai\". Caso a revista não seja editada em OJS, não esteja com o OAI-PMH habilitado ou utilize outro protocolo de interoperabilidade, sugerimos entrar em contato com o suporte técnico da revista. Por fim, caso a revista não utilize nenhum protocolo de interoperabilidade, deixe a questão em branco."
     dcidentifierinteroperabilityprotocol = forms.CharField(max_length=100, label='Protocolo de interoperabilidade',help_text=descri_interoperabilityprotocol, required=False)
     descri_persistentidentifier="Indique o link do identificador persistente atribuído à revista. Caso a revista não utilize nenhum identificador persistente, deixe a questão em branco. Identificador persistente é um identificador único de longa duração de um recurso na Internet que se mantém válido mesmo que a tecnologia de acesso ou a localização física do recurso identificado se modifique no tempo. Exemplos: DOI (Digital Object Identifier), Handle, URN, PURL, ARK."
     dcidentifierpersistentidentifier = forms.CharField(max_length=100, label='Identificador persistente',help_text =descri_persistentidentifier,required=False)
     descri_language="Selecione o (s) idioma (s) aceito (s) pela revista para submissão de documentos. Indique a resposta de acordo com as opções descritas na aba Opções de resposta. Caso as opções listadas não se adequem à realidade da revista, indique a resposta manualmente na caixa de texto."
     dclanguage = forms.CharField(max_length=100,label='Idioma de publicação',help_text = descri_language , required=True)    
 
-
-    
-    
     # Pagina dois
     
     descri_cnpq="Selecione as principais áreas do conhecimento em que a revista publica seus conteúdos, de acordo com a tabela de áreas do CNPq. Indique a resposta de acordo com as opções descritas na aba Opções de resposta. Solicita-se que sejam selecionadas somente as áreas de conhecimento em que a revista dá mais ênfase em suas publicações, não sendo aconselhável adicionar mais do que cinco entradas."
@@ -83,7 +47,7 @@ class ContactForm(forms.Form):
     descri_name="Informe o nome completo e por extenso da instituição responsável pela edição da revista . A responsabilidade pela edição da revista deverá levar em consideração o nível hierárquico mais alto de afiliação. Por exemplo, uma universidade, e não seus departamentos, faculdades ou institutos. Todos esses organismos subordinados podem ser descritos no campo Organismo subordinado. Caso a revista não possua instituição responsável pela edição, indique “Publicação independente”. Exemplo de preenchimento:Universidade de Brasília (UnB).  "
     dcpublishername = forms.CharField(max_length=100, label='Instituição editora',help_text = descri_name,required=True)
     descri_subordinate="Informe o nome completo e por extenso do organismo subordinado à instituição editora que atua diretamente na publicação da revista. Considere como organismos subordinados: departamentos, faculdades, coordenações, institutos etc. Exemplo de preenchimento: Programa de Pós-Graduação em História (PPGHIS)."
-    descridcpublishersubordinate = forms.CharField(max_length=100, label='Organismo subordinado',help_text =descri_subordinate, required=False)
+    dcpublishersubordinate = forms.CharField(max_length=100, label='Organismo subordinado',help_text =descri_subordinate, required=False)
     descri_publisher="Indique a URL do cadastro da instituição editora em plataformas que geram um identificador único para instituição, como as plataformas GRID, ISNI e CADI por exemplo. Os endereços das plataformas GRID, ISNI e CADI são respectivamente: https://www.grid.ac/, http://www.grid.ac/, http://www.isni.org/, https://www.isni.org/ e http://di.cnpq.br/di/cadi/consultaInst.do , http://di.cnpq.br/di/cadi/consultaInst.do"
     dcidentifierpublisher = forms.CharField(max_length=100, label='Identificador da instituição editora',help_text= descri_publisher, required=False)
     op_dcpublisherlegalnature = [("",""),("Instituição privada","Instituição privada"),\
@@ -95,7 +59,7 @@ class ContactForm(forms.Form):
     dcpublisherlegalnature = forms.ChoiceField(choices=op_dcpublisherlegalnature, label='Natureza jurídica da instituição editora',help_text= descri_legalnature,required=True)
     descri_contributor="Informe, por extenso, o nome do principal editor responsável pela revista. O nome do editor responsável deve ser preenchido, preferencialmente, da mesma forma que o campo Nome do curriculo Lattes."
     dccontributoreditor = forms.CharField(max_length=100, label='Editor responsável',help_text = descri_contributor,required=True)
-    descri_editor="Indique o código identificador do editor responsável em plataformas que geram um identificador único, como o currículo Lattes e ORCid.Os endereços das plataformas Lattes  e ORCid são, respectivamente:http://lattes.cnpq.br/, http://lattes.cnpq.br/ e https://orcid.org/" 
+    descri_editor="Indique o código identificador do editor responsável em plataformas que geram um identificador único, como o currículo Lattes e ORCid.Os endereços das plataformas Lattes  e ORCid são, respectivamente: http://lattes.cnpq.br/ e https://orcid.org/" 
     dcidentifiereditor = forms.CharField(max_length=100, label='Identificador do editor responsável',help_text=descri_editor,required=True)
     descri_email="Informe o endereço de e-mail utilizado pela revista. Deve ser indicado o endereço de e-mail próprio da revista, evitando, portanto, e-mails pessoais, já que a mudança de editor pode acarretar perda do contato."
     dcidentifieremail = forms.EmailField(max_length=100, label='E-mail',help_text = descri_email, required=True) 
@@ -161,7 +125,8 @@ class ContactForm(forms.Form):
     dcdateeditorialboardmonthofpublication = forms.ChoiceField(choices=op_mes_exp, label='Mês de publicação do expediente',help_text= descri_editorialboardmonthofpublication, required=False)
     #dcdateeditorialboardmonthofpublication.widget.attrs.update(size='2')
     op_mod_pub_pares = [("", ""),("Avaliação aberta","Avaliação aberta"),("Avaliação duplo-cego","Avaliação duplo-cego"),("Avaliação simples-cega","Avaliação simples-cega")]
-    descri_peerreview="Informe o modelo de revisão por pares adotado pela revista.Avaliação aberta:as identidades dos autores e dos avaliadores são reveladas para ambos durante o processo de avaliação.Avaliação duplo-cega:as identidades dos autores e dos avaliadores não são reveladas para ambos durante o processo de avaliação. Avaliação simples-cega: as identidades dos autores são reveladas para os avaliadores, mas as dos avaliadores são mantidas em sigilo para os autores durante o processo de avaliação. "
+    #descri_peerreview="Informe o modelo de revisão por pares adotado pela revista.Avaliação aberta:as identidades dos autores e dos avaliadores são reveladas para ambos durante o processo de avaliação.Avaliação duplo-cega:as identidades dos autores e dos avaliadores não são reveladas para ambos durante o processo de avaliação. Avaliação simples-cega: as identidades dos autores são reveladas para os avaliadores, mas as dos avaliadores são mantidas em sigilo para os autores durante o processo de avaliação. "
+    descri_peerreview="Informe o modelo de revisão por pares adotado pela revista."
     dcdescriptionpeerreview = forms.ChoiceField(choices=op_mod_pub_pares, label='Modalidade de avaliação por pares',help_text=descri_peerreview , required=True)
     op_dcdescriptionreviewerspublication= [("", ""),('A revista publica o nome de avaliadores dos documentos que foram aprovados na avaliação por pares','A revista publica o nome de avaliadores dos documentos que foram aprovados na avaliação por pares'),\
                                            ('A revista publica o nome de todos os avaliadores que participaram da avaliação de documentos por determinado período','A revista publica o nome de todos os avaliadores que participaram da avaliação de documentos por determinado período'),\
@@ -197,30 +162,30 @@ class ContactForm(forms.Form):
                            ("A revista não permite o armazenamento e acesso, em repositórios institucionais/digitais, da versão preprint do documento submetido para avaliação.","A revista não permite o armazenamento e acesso, em repositórios institucionais/digitais, da versão preprint do documento submetido para avaliação.")]
     descri_rightspreprint="Informe se a revista permite ou não o armazenamento e acesso a versão preprint do documento submetido a revista em repositórios institucionais/digitais. Diferentemente da questão anterior nesta questão deve-se indicar se a revista permite ou não que a versão preprint de um documento aceito pela revista possa ser armazenado e acessado em repositórios institucionais/digitais."
     dcrightspreprint = forms.ChoiceField(choices=op_dcrightspreprint, label='Permissão de armazenamento e acesso à versão preprint',help_text =descri_rightspreprint ,required=True)
-    op_dcrightsauthorpostprint = [("", ""),("A revista permite o armazenamento e acesso, em repositórios institucionais/digitais, da versão pós-print do autor","A revista permite o armazenamento e acesso, em repositórios institucionais/digitais, da versão pós-print do autor"),\
+    op_dcrightsauthorpostprint = [("A revista permite o armazenamento e acesso, em repositórios institucionais/digitais, da versão pós-print do autor","A revista permite o armazenamento e acesso, em repositórios institucionais/digitais, da versão pós-print do autor"),\
                            ("A revista não permite o armazenamento e acesso, em repositórios institucionais/digitais, da versão pós-print do autor.","A revista não permite o armazenamento e acesso, em repositórios institucionais/digitais, da versão pós-print do autor.")]
     descri_authorpostprint="Informe se a revista permite ou não o armazenamento e acesso à versão pós-print do autor em repositórios institucionais/digitais. Entende-se por pós-print do autor a versão do documento (artigo original, Artigo de revisão, dados de pesquisa, tradução etc) que já foi avaliada e aceita pela revista e corrigida pelo autor, mas que ainda não foi publicada."
     dcrightsauthorpostprint = forms.ChoiceField(choices=op_dcrightsauthorpostprint, label='Permissão de armazenamento e acesso à versão pós-print do autor',help_text = descri_authorpostprint, required=True)
-    op_dcrightsjournalpostprint = [("", ""),("A revista permite o armazenamento e acesso, em repositórios institucionais/digitais, da versão pós-print da revista","A revista permite o armazenamento e acesso, em repositórios institucionais/digitais, da versão pós-print da revista"),\
+    op_dcrightsjournalpostprint = [("A revista permite o armazenamento e acesso, em repositórios institucionais/digitais, da versão pós-print da revista","A revista permite o armazenamento e acesso, em repositórios institucionais/digitais, da versão pós-print da revista"),\
                                    ("A revista não permite o armazenamento e acesso, em repositórios institucionais/digitais, da versão pós-print da revista","A revista não permite o armazenamento e acesso, em repositórios institucionais/digitais, da versão pós-print da revista")]
     descri_journalpostprint="Informe se a revista permite ou não armazenamento e acesso à versão pós-print da revista em repositórios institucionais/digitais. Entende-se por pós-print da revista a versão do documento (artigo original, artigo de revisão, dados de pesquisa, tradução etc) que já foi avaliada, aceita e publicada pela revista. Diz respeito, portanto, à versão final do documento."
     dcrightsjournalpostprint = forms.ChoiceField(choices=op_dcrightsjournalpostprint, label='Permissão de armazenamento e acesso à versão pós-prints da revista',help_text= descri_journalpostprint, required=True)
     
     #Pagina quatro
     
-    op_dcrightssealcolor = [("", ""),("Amarela: permite o armazenamento e acesso das versões pré-print dos documentos em repositórios institucionais/digitais","Amarela: permite o armazenamento e acesso das versões pré-print dos documentos em repositórios institucionais/digitais"),\
+    op_dcrightssealcolor = [("Amarela: permite o armazenamento e acesso das versões pré-print dos documentos em repositórios institucionais/digitais","Amarela: permite o armazenamento e acesso das versões pré-print dos documentos em repositórios institucionais/digitais"),\
                             ("Azul: permite o armazenamento e acesso das versões pós-print dos documentos em repositórios institucionais/digitais","Azul: permite o armazenamento e acesso das versões pós-print dos documentos em repositórios institucionais/digitais"),\
                             ("Branca: apresenta restrições para o armazenamento e acesso das versões pré-print e pós-print dos documentos em repositórios institucionais/digitais","Branca: apresenta restrições para o armazenamento e acesso das versões pré-print e pós-print dos documentos em repositórios institucionais/digitais"),\
                             ("Verde: permite o armazenamento e acesso das versões pré-print e pós-print dos documentos em repositórios institucionais/digitais","Verde: permite o armazenamento e acesso das versões pré-print e pós-print dos documentos em repositórios institucionais/digitais")]
     descri_sealcolor="De acordo com as respostas dadas nas quatro últimas questões acerca das permissões estabelecidas para as diferentes versões dos documentos para armazenamento e acesso em repositórios institucionais/digitais, atribua um selo/cor que resuma a política da revista.Opções de resposta:1.permite o armazenamento e acesso das versões pré-print dos documentos em repositórios institucionais/digitais.2.permite o armazenamento e acesso das versões pós-print dos documentos em repositórios institucionais/digitais.3.apresenta restrições para o armazenamento e acesso das versões pré-print e pós-print dos documentos em repositórios institucionais/digitais.4.permite o armazenamento e acesso das versões pré-print e pós-print dos documentos em repositórios institucionais/digitais."
     dcrightssealcolor = forms.ChoiceField(choices=op_dcrightssealcolor, label='Selo de armazenamento e acesso',help_text = descri_sealcolor, required=True)
-    op_dcrightstime = [("", ""),("Imediatamente após a aceitação do documento","Imediatamente após a aceitação do documento"),\
+    op_dcrightstime = [("Imediatamente após a aceitação do documento","Imediatamente após a aceitação do documento"),\
                        ("Imediatamente após a publicação do documento","Imediatamente após a publicação do documento"),\
                        ("Após finalizado o período de embargo","Após finalizado o período de embargo"),\
                        ("Não permite o armazenamento","Não permite o armazenamento")]
     descri_rightstime="Informe quando os documentos poderão ser disponibilizados em acesso aberto em repositórios institucionais/digitais."
     dcrightstime = forms.ChoiceField(choices=op_dcrightstime, label='Prazo para disponibilização de documentos',help_text= descri_rightstime, required=True)
-    op_dcrightsaccess = [("", ""),("Acesso aberto imediato","Acesso aberto imediato"),\
+    op_dcrightsaccess = [("Acesso aberto imediato","Acesso aberto imediato"),\
                          ("Acesso aberto após período de embargo","Acesso aberto após período de embargo"),\
                          ("Acesso restrito","Acesso restrito"),\
                          ("Acesso híbrido","Acesso híbrido")]
@@ -228,13 +193,14 @@ class ContactForm(forms.Form):
     dcrightsaccess = forms.ChoiceField(choices=op_dcrightsaccess, label='Tipo de acesso',help_text = descri_access ,required=True)
     descri_rightsembargedtime="Caso tenha marcado a opção “Acesso aberto após período de embargo”, informe, em meses, o tempo que os documentos não estarão disponíveis para acesso. Exemplo: 12 meses."
     dcrightsembargedtime = forms.CharField(max_length=100, label='Período de embargo',help_text = descri_rightsembargedtime, required=False)
-    op_dcrightscreativecommons = [("", ""),("Permite distribuição, remixagem, adaptação e criação a partir da obra, mesmo para fins comerciais, desde que seja atribuído o crédito ao autor da obra original (CC BY)","Permite distribuição, remixagem, adaptação e criação a partir da obra, mesmo para fins comerciais,\n desde que seja atribuído o crédito ao autor da obra original (CC BY)"),\
+    op_dcrightscreativecommons = [("Permite distribuição, remixagem, adaptação e criação a partir da obra, mesmo para fins comerciais, desde que seja atribuído o crédito ao autor da obra original (CC BY)","Permite distribuição, remixagem, adaptação e criação a partir da obra, mesmo para fins comerciais,\n desde que seja atribuído o crédito ao autor da obra original (CC BY)"),\
                                   ("Permite distribuição, remixagem, adaptação e criação a partir da obra, mesmo para fins comerciais, desde que seja atribuído o crédito ao autor da obra original e que as novas criações utilizem a mesma licença da obra original (CC BY-SA)","Permite distribuição, remixagem, adaptação e criação a partir da obra, mesmo para fins comerciais,\n desde que seja atribuído o crédito ao autor da obra original e que as novas criações utilizem a mesma licença da obra original (CC BY-SA)"),\
                                   ("Permite redistribuição, comercial ou não comercial, desde que a obra não seja modificada e que seja atribuído o crédito ao autor (CC BY-ND)","Permite redistribuição, comercial ou não comercial, desde que a obra não seja modificada e que seja atribuído o crédito ao autor (CC BY-ND)"),\
                                   ("Permite remixagem, adaptação e criação a partir da obra, desde que seja atribuído o crédito ao autor e que a nova criação não seja usada para fins comerciais (CC BY-NC)","Permite remixagem, adaptação e criação a partir da obra, desde que seja atribuído\n o crédito ao autor e que a nova criação não seja usada para fins comerciais (CC BY-NC)"),\
                                   ("Permite remixagem, adaptação e criação a partir da obra, para fins não comerciais, desde que seja atribuído o crédito ao autor da obra original e que as novas criações utilizem a mesma licença da obra original (CC BY-NC-SA)","Permite remixagem, adaptação e criação a partir da obra\n, para fins não comerciais, desde que seja atribuído o crédito ao autor da obra original e que as novas criações utilizem a mesma licença da obra original (CC BY-NC-SA)"),\
                                   ("Permite redistribuição não comercial, desde que seja atribuído o crédito ao autor e que a obra não seja alterada de nenhuma forma (CC BY-NC-ND)","Permite redistribuição não comercial, desde que seja atribuído o crédito ao autor\n e que a obra não seja alterada de nenhuma forma (CC BY-NC-ND)")]
-    descri_rightscreativecommons="Selecione, entre as licenças Licenças Creative Commons, aquela que define as condições estabelecidas pela revista para uso, adaptação e redistribuição dos conteúdos publicados. O conteúdo completo das Licenças Creative Commons pode ser acessado pelo link https://br.creativecommons.org/licencas/ , https://br.creativecommons.org/licencas/ , Opções de resposta:1.Permite distribuição, remixagem, adaptação e criação a partir da obra, mesmo para fins comerciais, desde que seja atribuído o crédito ao autor da obra original (CC BY).2.Permite distribuição, remixagem, adaptação e criação a partir da obra, mesmo para fins comerciais, desde que seja atribuído o crédito ao autor da obra original e que as novas criações utilizem a mesma licença da obra original (CC BY-SA)3.Permite redistribuição, comercial ou não comercial, desde que a obra não seja modificada e que seja atribuído o crédito ao autor (CC BY-ND)4.Permite remixagem, adaptação e criação a partir da obra, desde que seja atribuído o crédito ao autor e que a nova criação não seja usada para fins comerciais (CC BY-NC)5.Permite remixagem, adaptação e criação a partir da obra, para fins não comerciais, desde que seja atribuído o crédito ao autor da obra original e que as novas criações utilizem a mesma licença da obra original (CC BY-NC-SA)6.Permite redistribuição não comercial, desde que seja atribuído o crédito ao autor e que a obra não seja alterada de nenhuma forma (CC BY-NC-ND)."
+    #descri_rightscreativecommons="Selecione, entre as licenças Licenças Creative Commons, aquela que define as condições estabelecidas pela revista para uso, adaptação e redistribuição dos conteúdos publicados. O conteúdo completo das Licenças Creative Commons pode ser acessado pelo link https://br.creativecommons.org/licencas/ , https://br.creativecommons.org/licencas/ , Opções de resposta:1.Permite distribuição, remixagem, adaptação e criação a partir da obra, mesmo para fins comerciais, desde que seja atribuído o crédito ao autor da obra original (CC BY).2.Permite distribuição, remixagem, adaptação e criação a partir da obra, mesmo para fins comerciais, desde que seja atribuído o crédito ao autor da obra original e que as novas criações utilizem a mesma licença da obra original (CC BY-SA)3.Permite redistribuição, comercial ou não comercial, desde que a obra não seja modificada e que seja atribuído o crédito ao autor (CC BY-ND)4.Permite remixagem, adaptação e criação a partir da obra, desde que seja atribuído o crédito ao autor e que a nova criação não seja usada para fins comerciais (CC BY-NC)5.Permite remixagem, adaptação e criação a partir da obra, para fins não comerciais, desde que seja atribuído o crédito ao autor da obra original e que as novas criações utilizem a mesma licença da obra original (CC BY-NC-SA)6.Permite redistribuição não comercial, desde que seja atribuído o crédito ao autor e que a obra não seja alterada de nenhuma forma (CC BY-NC-ND)."
+    descri_rightscreativecommons="Selecione, entre as licenças Licenças Creative Commons, aquela que define as condições estabelecidas pela revista para uso, adaptação e redistribuição dos conteúdos publicados. O conteúdo completo das Licenças Creative Commons pode ser acessado pelo link https://br.creativecommons.org/licencas/ , https://br.creativecommons.org/licencas/."
     dcrightscreativecommons = forms.ChoiceField(choices=op_dcrightscreativecommons, label='Licença Creative Commons',help_text = descri_rightscreativecommons, required=True, widget=forms.RadioSelect)
     #dcrightscreativecommons.widget.attrs.update(size='2')
     op_dcdescriptionpublicationfees = [("", ""),("A revista cobra taxa de submissão de artigos","A revista cobra taxa de submissão de artigos"),\
@@ -250,7 +216,7 @@ class ContactForm(forms.Form):
     descri_codeofethics="Informe a qual (is) Código (s) de ética ou recomendações internacionais a revista faz adesão. Indique a resposta de acordo com as opções descritas na aba Opções de resposta. Caso as opções listadas não se adequem à realidade da revista, indique a resposta manualmente na caixa de texto. Exemplos: COPE, ICJME, BOAI etc."
     dcdescriptioncodeofethics = forms.CharField(max_length=100, label='Código de ética', help_text = descri_codeofethics, required=False)
     descri_referenceguidelines="Indique o padrão de normalização bibliográfica adotado pela revista. Indique a resposta de acordo com as opções descritas na aba Opções de resposta. Caso as opções listadas não se adequem à realidade da revista, indique a resposta manualmente na caixa de texto. Caso a revista adote um Padrão de normalização bibliográfica próprio deixe a questão em branco."
-    dcdescriptionreferenceguidelines = forms.CharField(max_length=100, label='Padrão de normalização bibiográfica',help_text = descri_referenceguidelines, required=False)
+    dcdescriptionreferenceguidelines = forms.CharField(max_length=100, label='Padrão de normalização bibliográfica',help_text = descri_referenceguidelines, required=False)
     descri_descriptionplagiarismdetection ="Indique a resposta de acordo com as opções descritas na aba Opções de resposta. Caso as opções listadas não se adequem à realidade da revista, indique a resposta manualmente na caixa de texto. Exemplos de softwares : Copia e Cola, Ephorus, Farejador de Plágio, Glatt, iThenticate, Plagiarism.org, Plagius, Turnitin, WriteCheck, Similarity check."
     dcdescriptionplagiarismdetection = forms.CharField(max_length=100, label='Plataforma de detecção de plágio', help_text= descri_descriptionplagiarismdetection, required=False)
     descri_descriptiondigitalpreservation="Indique a estratégia de preservação digital adotada pela revista. Indique a resposta de acordo com as opções descritas na aba Opções de resposta. Caso as opções listadas não se adequem à realidade da revista, indique a resposta manualmente na caixa de texto. Exemplos: Lockss, CLockss, Pórtico, Archivematica."
@@ -310,7 +276,7 @@ class ContactForm(forms.Form):
                                   ("Serviço social","Serviço social"),\
                                   ("Sociologia","Sociologia"),\
                                   ("Zootecnia / Recursos pesqueiros","Zootecnia / Recursos pesqueiros")]
-    descri_descriptionqualisarea="Indique a área-mãe de avaliação da revista no estrato Qualis-Periódicos, de acordo com a classificação mais recente da revista. Caso a revista ainda não tenha sido avaliada, indique Revista não avaliada. Essa informação pode ser verificada pela busca por número de ISSN da revista no link: https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/veiculoPublicacaoQualis/listaConsultaGeralPeriodicos.jsf https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/veiculoPublicacaoQualis/listaConsultaGeralPeriodicos.jsf"
+    descri_descriptionqualisarea="Indique a área-mãe de avaliação da revista no estrato Qualis-Periódicos, de acordo com a classificação mais recente da revista. Caso a revista ainda não tenha sido avaliada, indique Revista não avaliada. Essa informação pode ser verificada pela busca por número de ISSN da revista no link: https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/veiculoPublicacaoQualis/listaConsultaGeralPeriodicos.jsf "
     dcdescriptionqualisarea = forms.ChoiceField(choices=op_dcdescriptionqualisarea, label='Área de avaliação Qualis-Periódicos',help_text = descri_descriptionqualisarea, required=True)
     op_dcdescriptionqualisclassification = [("", ""),("Revista não avaliada","Revista não avaliada"),\
                                             ("A1","A1"),\
@@ -322,7 +288,7 @@ class ContactForm(forms.Form):
                                             ("B3","B3"),\
                                             ("B4","B4"),\
                                             ("C","C")]
-    descri_descripstionqualisclassification = "Indique a classificação mais recente da revista no estrato Qualis-Periódicos para a área-mãe indicada no campo acima. Caso a revista ainda não tenha sido avaliada, indique Revista não avaliada. Essa informação pode ser verificada pela busca do ISSN da revista no link:https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/veiculoPublicacaoQualis/listaConsultaGeralPeriodicos.jsf, https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/veiculoPublicacaoQualis/listaConsultaGeralPeriodicos"
+    descri_descripstionqualisclassification = "Indique a classificação mais recente da revista no estrato Qualis-Periódicos para a área-mãe indicada no campo acima. Caso a revista ainda não tenha sido avaliada, indique Revista não avaliada. Essa informação pode ser verificada pela busca do ISSN da revista no link:https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/veiculoPublicacaoQualis/listaConsultaGeralPeriodicos.jsf"
     dcdescriptionqualisclassification = forms.ChoiceField(choices=op_dcdescriptionqualisclassification, label='Classificação Qualis-Periódicos', help_text = descri_descripstionqualisclassification, required=True)
     descri_descriptionsocialnetwork ="A revista deve indicar o nome da(s) rede(s) social(is) em que está presente. Indique a resposta de acordo com as opções descritas na aba Opções de resposta. Caso as opções listadas não se adequem à realidade da revista, indique a resposta manualmente na caixa de texto."
     dcdescriptionsocialnetworks = forms.CharField(max_length=100, label='Redes Sociais',help_text = descri_descriptionsocialnetwork, required=False)
@@ -330,8 +296,8 @@ class ContactForm(forms.Form):
     dcrelationinformationservices = forms.CharField(max_length=100, label='Serviços de informação', help_text = descri_relationinformationservices, required=True)
     descri_identifierjournalsportaluri ="Indique o título do portal de periódicos que hospeda a revista. Portal de periódicos é o portal institucional em que o site oficial da revista se encontra hospedado. Exemplos: Portal de Periódicos UFSC, Portal de Periódicos Eletrônicos Científicos da UNICAMP."
     dcidentifierjournalsportaluri = forms.CharField(max_length=100, label='Portal de periódicos',help_text = descri_identifierjournalsportaluri, required=False)
-    descri_relationoasisbr ="Indique a URL da busca do ISSN da revista no Portal oasisbr."
-    dcrelationoasisbr = forms.CharField(max_length=100, label='Artigos da revista no Portal oasisbr',help_text= descri_relationoasisbr, required=False)
+    #descri_relationoasisbr ="Indique a URL da busca do ISSN da revista no Portal oasisbr."
+    #dcrelationoasisbr = forms.CharField(max_length=100, label='Artigos da revista no Portal oasisbr',help_text= descri_relationoasisbr, required=False)
     
     
 

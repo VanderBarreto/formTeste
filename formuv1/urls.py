@@ -31,7 +31,6 @@ urlpatterns = [
     #path('admin/', admin.site.urls),
     path('login/', login.user_login, name='login'),
     path('revista/', revistas.revista, name='revista'),
-    path('order/', revistas.revista, name='order'),
 ]
 
 if settings.DEBUG:

@@ -18,13 +18,18 @@
    <body>
       
       <div id="wrapper">
+     <div class="container">
+      
+      <header>
+        <div id="logo">  
+        <p class="text-center"><img src="{% static 'logomiguilim.png' %}" class="img-fluid" alt="Responsive image" /></p> 
+        </div>
+       </header>
+     </div>
      
-     <header class= "row col-xs-7 col-sm-7 col-md-7 col-lg-7 ">
-      <div id="logo"><img src="{% static 'logomiguilim.png' %}" alt="" /></div>
-     </header>
      
     
-     <section class="">
+     <section>
        
        {% block content %}
        <p>.</p>

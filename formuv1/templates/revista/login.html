@@ -9,31 +9,36 @@
 
  <h1> {{ mensagem }} </h1>
  
-      
-      <div style="background:#E6E7E8!important" class="col-md-6 offset-md-3">
+ <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+      <div style="background:#FFFFFF!important">
         <div width: 600px;>
-        <h1>Acesse sua Revista:</h1>
+        <h2>Acesse sua Revista:</h2>
+        <p></p>
 <form method="post" action="">
   {% load crispy_forms_tags %}       
   {% csrf_token %}
           {# A more "HTML" way of creating the login form#}
           <label for="username">E-mail:</label>
           <input type="text" name="email" placeholder="e-mail do Miguilim">
+          <p></p>
           <p>
           <label for="password">Senha:</label>
           <input type="password" name="senha" placeholder="senha">
           <p>
           <label for="username">ISSN:</label>
-          <input type="text" name="revista" placeholder="1234-5678">
+          <input type="text" name="revista" placeholder="0000-0000">
           <p>
 <input type="submit" name="" value="Acessar">
 
-<p><a href="http://10.0.0.103:8080/jspui">Faça seu cadastro no Miguilin</a>        
+<p><a href="http://200.130.45.73:8080/jspui-atual/">Faça seu cadastro no Miguilim</a>        
         </p>
-<p><a href="http://10.0.0.103:8080/jspui">Esqueci minha senha</a>        
+<p><a href="http://200.130.45.73:8080/jspui-atual/">Esqueci minha senha</a>        
         </p>
 </form>
 </div>
 </div>
   </div>
+  </div> <!--Fim div row-->
+</div> <!--Fim div container-->
 {% endblock %}

@@ -9,9 +9,6 @@ from .dados import Dados
 from .forms import ContactForm
 from .enviodeemail import EnviodoEmail
 
-from .forms import OrderForms, ItemOrderForms
-from .models import Order, ItemOrder
-
 g_link=""
 g_token=""
 end_dspace = "http:/192.168.10.17:8080"
@@ -28,12 +25,6 @@ class Revistas:
         nomerevista = ""
         submitted = False
         
-        #teeeeste
-        order_forms = Order()
-        item_order_formset = inlineformset_factory(Order, ItemOrder, form=ItemOrderForms, extra=1, can_delete=False, min_num=1, validate_min=True)
-        
-        #
-        
             
         if request.method == 'POST':
             
@@ -46,7 +37,7 @@ class Revistas:
                 
                 nome_revista=str(request.POST.get('dctitle'))
                 print(nome_revista)
-                metadata ='[{"key":"dc.description.abstract","value":"'+str(request.POST.get('dcdescriptionabastract'))+'","language":"pt_BR"},\
+                metadata ='[{"key":"dc.description.abstract","value":"'+str(request.POST.get('dcdescriptionabstract'))+'","language":"pt_BR"},\
                 {"key":"dc.title","value":"'+str(request.POST.get('dctitle'))+'","language":"pt_BR"},\
                 {"key":"dc.title.abbreviated","value":"'+str(request.POST.get('dctitleabbreviated'))+'","language":"pt_BR"},\
                 {"key":"dc.title.proper","value":"'+str(request.POST.get('dctitleproper'))+'","language":"pt_BR"},\
@@ -110,8 +101,8 @@ class Revistas:
                 {"key":"dc.description.qualisclassification","value":"'+str(request.POST.get('dcdescriptionqualisclassification'))+'","language":"pt_BR"},\
                 {"key":"dc.description.socialnetworks","value":"'+str(request.POST.get('dcdescriptionsocialnetworks'))+'","language":"pt_BR"},\
                 {"key":"dc.relation.informationservices","value":"'+str(request.POST.get('dcrelationinformationservices'))+'","language":"pt_BR"},\
-                {"key":"dc.identifier.journalsportaluri","value":"'+str(request.POST.get('dcidentifierjournalsportaluri'))+'","language":"pt_BR"},\
-                {"key":"dc.relation.oasisbr","value":"'+str(request.POST.get('dcrelationoasisbr'))+'"}]'
+                {"key":"dc.identifier.journalsportaluri","value":"'+str(request.POST.get('dcidentifierjournalsportaluri'))+'","language":"pt_BR"}]'
+                
                 
                 #print(metadata)
                 ComandoURL = 'curl --cookie "JSESSIONID='+token+'" -H "accept: application/json" -H "Content-Type: application/json" -X PUT '+end_dspace_metadata+" -d '"+metadata+"'"
@@ -130,20 +121,18 @@ class Revistas:
                        
         else:
             
-            #print("\ntoken = "+g_token)
-            #print("\nlink = "+g_link)
-            
             if g_token=="":
+                
                 mensagem = ""
-                #return render(request, 'revista/login.html', {"mensagem": mensagem})
-                return HttpResponseRedirect('/login')           
+
+                return HttpResponseRedirect('/login')    
+            
             else:
-                #print("momento 2")
+                
                 dados_iniciais = Dados()
                 dados_iniciais.buscar(g_link,end_dspace)
                 nomerevista=dados_iniciais.retorno('dc.title')
-                #print("\n"+dados_iniciais.retorno('dc.date.startyear')+"\n")
-                info_entrada = {"dcdescriptionabastract": dados_iniciais.retorno('dc.description.abstract'),\
+                info_entrada = {"dcdescriptionabstract": dados_iniciais.retorno('dc.description.abstract'),\
                         "dctitle": dados_iniciais.retorno('dc.title'),\
                         "dctitleabbreviated": dados_iniciais.retorno('dc.title.abbreviated'),\
                         "dctitleproper": dados_iniciais.retorno('dc.title.proper'),\
@@ -153,7 +142,7 @@ class Revistas:
                         "dcidentifierissn": dados_iniciais.retorno('dc.identifier.issn'),\
                         "dcidentifierissnl": dados_iniciais.retorno('dc.identifier.issnl'),\
                         "dcdescriptionsituation": dados_iniciais.retorno('dc.description.situation'),\
-                        "dcdatestartyears": dados_iniciais.retorno('dc.date.startyear'),\
+                        "dcdatestartyear": dados_iniciais.retorno('dc.date.startyear'),\
                         "dcdateendyear": dados_iniciais.retorno('dc.date.endyear'),\
                         "dcidentifierurl": dados_iniciais.retorno('dc.identifier.url'),\
                         "dcidentifierinteroperabilityprotocol": dados_iniciais.retorno('dc.identifier.interoperabilityprotocol'),\
@@ -207,28 +196,18 @@ class Revistas:
                         "dcdescriptionqualisclassification": dados_iniciais.retorno('dc.description.qualisclassification'),\
                         "dcdescriptionsocialnetworks": dados_iniciais.retorno('dc.description.socialnetworks"'),\
                         "dcrelationinformationservices": dados_iniciais.retorno('dc.relation.informationservices'),\
-                        "dcidentifierjournalsportaluri": dados_iniciais.retorno('dc.identifier.journalsportaluri'),\
-                        "dcrelationoasisbr": dados_iniciais.retorno('dc.relation.oasisbr')}
+                        "dcidentifierjournalsportaluri": dados_iniciais.retorno('dc.identifier.journalsportaluri')}
                 #print(info_entrada)
                 form = ContactForm(info_entrada) # as informações são carredas nesse momento
                 info_entrada=None
-                
-                forms = OrderForms(instance=order_forms, prefix='main')
-                formset = item_order_formset(instance=order_forms, prefix='product')
-                print(forms)
-                context = {
-                        'forms': forms,
-                        'formset': formset,
-                        }
-                
+                print(form)
                 
                 if 'submitted' in request.GET:
                     submitted = True
         
     
-        #return render(request, 'revista/revista.html', {'nomerevista': nomerevista, 'form': form, 'submitted': submitted})
+        return render(request, 'revista/revista.html', {'nomerevista': nomerevista, 'forms': form, 'submitted': submitted})
 
-        return render(request, 'revista/order.html', context)
         
 class Login:
     
@@ -274,7 +253,7 @@ class Login:
                 
                     if cod == "0" :
                         
-                        return HttpResponseRedirect('/order')
+                        return HttpResponseRedirect('/revista')
                         
     #                    if user.is_active:
     #                        login(request,user)

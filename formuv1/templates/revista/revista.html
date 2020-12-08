@@ -4,17 +4,20 @@
 {% block content %}
 {% load static %} 
 
- <script>
+<script>
+
+        function()
+        
         $(document).ready(function(){
             $("#add-item").click(function(ev) {
                 ev.preventDefault();
-                var count = $('#order').children().length;
+                var count = $("#order").children().length;
                 var tmplMarkup = $("#item-order").html();
                 var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
                 $("div#order").append(compiledTmpl);
 
                 // update form count
-                $('#id_product-TOTAL_FORMS').attr('value', count + 1);
+                $('#id_main-URL').attr('value', count + 1);
 
                 // some animate to scroll to view our new form
                 $('html, body').animate({
@@ -23,6 +26,16 @@
             });
         });
     </script>
+    
+    <script>
+    $('#add-item').click(function () {
+      let total_form = $('#id_main-URL');
+      let form_idx = total_form.val();
+
+      $('#formset_wrapper').append($('#emptyform_wrapper').html().replace(/__prefix__/g, form_idx));
+      total_form.val(parseInt(form_idx)+1);
+    });
+  </script>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -43,12 +56,91 @@
      
      {% else %}
         <p></p>
-    <p></p>
-             
-            <form action="" method="post" novalidate enctype="multipart/form-data">
+        <p></p>
+                            
+        <form action="" method="post" novalidate enctype="multipart/form-data">
             <table>
+                {% csrf_token %}  
                
-            {{ form|crispy }}
+               {{ forms.dcdescriptionabstract | as_crispy_field }}
+                {{ forms.dctitle|as_crispy_field }}
+                {{ forms.dctitleabbreviated | as_crispy_field }}
+                {{ forms.dctitleproper | as_crispy_field }}
+                {{ forms.dctitleother | as_crispy_field }}
+                {{ forms.dctitleprevious | as_crispy_field }}
+                {{ forms.dctitlelater | as_crispy_field }} 
+                {{ forms.dcidentifierissn | as_crispy_field }}  
+                {{ forms.dcidentifierissnl | as_crispy_field }}   
+                {{ forms.dcdescriptionsituation | as_crispy_field }}    
+                {{ forms.dcdatestartyear | as_crispy_field }}     
+                {{ forms.dcdateendyear | as_crispy_field }}      
+                {{ forms.dcidentifierurl | as_crispy_field }}  
+                     <a class="btn btn-info" id="add-item"><i class="acaodcidenfierurl"></i> Adicionar  Item</a>
+                {{ forms.dcidentifierinteroperabilityprotocol | as_crispy_field }}
+                     <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a>    
+                {{ forms.dcidentifierpersistentidentifier | as_crispy_field }}
+                     <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a> 
+                {{ forms.dclanguage | as_crispy_field }} 
+                     <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a> 
+                {{ forms.dcsubjectcnpq | as_crispy_field }}  
+                    <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a>      
+                {{ forms.dcpublishername | as_crispy_field }}
+                {{ forms.dcpublishersubordinate | as_crispy_field }} 
+                {{ forms.dcidentifierpublisher | as_crispy_field }} 
+                <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a>
+                {{ forms.dcpublisherlegalnature | as_crispy_field }}         
+                {{ forms.dccontributoreditor | as_crispy_field }}          
+                {{ forms.dcidentifiereditor | as_crispy_field }}  
+                <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a>
+                {{ forms.dcidentifieremail | as_crispy_field }} 
+                <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a>
+                {{ forms.dcdescriptioncep | as_crispy_field }}         
+                {{ forms.dcdescriptionstate | as_crispy_field }} 
+                {{ forms.dcdescriptioncity | as_crispy_field }}         
+                {{ forms.dcdescriptionstreet | as_crispy_field }} 
+                {{ forms.dcdescriptionbuilding | as_crispy_field }}         
+                {{ forms.dcdescriptionphone | as_crispy_field }} 
+                <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a>
+                <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> procure seu numero</a>
+                {{ forms.dcdescriptionmodalityofpublication | as_crispy_field }}   
+                <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a>        
+                {{ forms.dcdescriptionperiodicity | as_crispy_field }} 
+                {{ forms.dcdatemonthofpublication | as_crispy_field }}
+                <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a>         
+                {{ forms.dcdescriptioneditorialboardperiodicity | as_crispy_field }} 
+                <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a>
+                {{ forms.dcdateeditorialboardmonthofpublication | as_crispy_field }} 
+                <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a>        
+                {{ forms.dcdescriptionpeerreview | as_crispy_field }} 
+                {{ forms.dcdescriptionreviewerspublication | as_crispy_field }}         
+                {{ forms.dcdescriptionreviewerstypeofpublication | as_crispy_field }}
+                <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a>
+                {{ forms.dcdescriptionreviewersperiodicityofpublication | as_crispy_field }}         
+                {{ forms.dcdescriptionpeerreviewexternality | as_crispy_field }}
+                {{ forms.dcdescriptionpeerreviewdocuments | as_crispy_field }}
+                <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a>         
+                {{ forms.dccontributorpublishingresponsable | as_crispy_field }} 
+                {{ forms.dcrightspreprintsubmission | as_crispy_field }} 
+                {{ forms.dcrightspreprint | as_crispy_field }} 
+                {{ forms.dcrightsauthorpostprint | as_crispy_field }}         
+                {{ forms.dcrightsjournalpostprint | as_crispy_field }} 
+                {{ forms.dcrightssealcolor | as_crispy_field }}         
+                {{ forms.dcrightstime | as_crispy_field }} 
+                {{ forms.dcrightsaccess | as_crispy_field }}         
+                {{ forms.dcrightsembargedtime | as_crispy_field }}
+                {{ forms.dcrightscreativecommons | as_crispy_field }}         
+                {{ forms.dcdescriptionpublicationfees | as_crispy_field }}
+                {{ forms.dcdescriptionsubmissionfees | as_crispy_field }}         
+                {{ forms.dcdescriptionapc | as_crispy_field }}
+                {{ forms.dcdescriptioncodeofethics | as_crispy_field }}  
+                {{ forms.dcdescriptionreferenceguidelines | as_crispy_field }}
+                {{ forms.dcdescriptionplagiarismdetection | as_crispy_field }}
+                <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a> 
+                 {{ forms.dcdescriptiondigitalpreservation | as_crispy_field }}
+                <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar  Item</a>
+                  
+                
+                
         
             <tr>
             <td>&nbsp;</td>
@@ -57,6 +149,7 @@
             </table>
             {% csrf_token %}
             </form>
+                   
                    
        
      {% endif %}
